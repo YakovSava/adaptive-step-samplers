@@ -5,6 +5,7 @@ import comfy.samplers
 
 from .nodes import NODE_CLASS_MAPPINGS, NODE_DISPLAY_NAME_MAPPINGS
 from .samplers import sample_adaptive_pc
+from .stochastic import sample_adaptive_sa
 
 PRESETS: dict[str, dict[str, Any]] = {
     "apc_2": {"order": 2, "mode": "budget", "use_corrector": True},
@@ -12,11 +13,19 @@ PRESETS: dict[str, dict[str, Any]] = {
     "apc_2_pred": {"order": 2, "mode": "budget", "use_corrector": False},
     "apc_2_fixed": {"order": 2, "mode": "fixed", "use_corrector": True},
     "apc_3_fixed": {"order": 3, "mode": "fixed", "use_corrector": True},
-    "apc_tol_2": {"order": 2, "mode": "tolerance", "use_corrector": True},
+}
+
+STOCHASTIC_PRESETS: dict[str, dict[str, Any]] = {
+    "asa_fixed": {"response": 0.0},
+    "asa_adaptive": {"response": -1.0},
 }
 
 
-def make_preset_sampler(name: str, options: dict[str, Any]) -> Callable[..., Any]:
+def make_preset_sampler(
+    name: str,
+    options: dict[str, Any],
+    base: Callable[..., Any],
+) -> Callable[..., Any]:
     def preset_sampler(
         model: Any,
         x: Any,
@@ -28,7 +37,7 @@ def make_preset_sampler(name: str, options: dict[str, Any]) -> Callable[..., Any
     ) -> Any:
         merged: dict[str, Any] = dict(options)
         merged.update(overrides)
-        return sample_adaptive_pc(
+        return base(
             model,
             x,
             sigmas,
@@ -42,13 +51,19 @@ def make_preset_sampler(name: str, options: dict[str, Any]) -> Callable[..., Any
     return preset_sampler
 
 
+def register(name: str, function: Callable[..., Any]) -> None:
+    setattr(k_diffusion_sampling, f"sample_{name}", function)
+    if name not in comfy.samplers.KSAMPLER_NAMES:
+        comfy.samplers.KSAMPLER_NAMES.append(name)
+    if name not in comfy.samplers.SAMPLER_NAMES:
+        comfy.samplers.SAMPLER_NAMES.append(name)
+
+
 def register_presets() -> None:
     for name, options in PRESETS.items():
-        setattr(k_diffusion_sampling, f"sample_{name}", make_preset_sampler(name, options))
-        if name not in comfy.samplers.KSAMPLER_NAMES:
-            comfy.samplers.KSAMPLER_NAMES.append(name)
-        if name not in comfy.samplers.SAMPLER_NAMES:
-            comfy.samplers.SAMPLER_NAMES.append(name)
+        register(name, make_preset_sampler(name, options, sample_adaptive_pc))
+    for name, options in STOCHASTIC_PRESETS.items():
+        register(name, make_preset_sampler(name, options, sample_adaptive_sa))
 
 
 register_presets()

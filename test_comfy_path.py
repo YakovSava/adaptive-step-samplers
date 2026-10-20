@@ -73,7 +73,6 @@ EXPECTED_NFE: dict[str, Callable[[int], bool]] = {
     "apc_2_pred": lambda steps, used: used == steps,
     "apc_2": lambda steps, used: used == steps,
     "apc_3": lambda steps, used: used == steps,
-    "apc_tol_2": lambda steps, used: 0 < used <= steps,
 }
 
 

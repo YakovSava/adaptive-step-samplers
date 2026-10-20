@@ -9,12 +9,10 @@ def clamp(value: float, low: float, high: float) -> float:
 class StepController:
     def __init__(
         self,
-        safety: float = 0.9,
         damping: float = 1.0,
         min_ratio: float = 0.5,
         max_ratio: float = 2.0,
     ) -> None:
-        self.safety: float = safety
         self.damping: float = damping
         self.min_ratio: float = min_ratio
         self.max_ratio: float = max_ratio
@@ -23,11 +21,7 @@ class StepController:
         if error <= 0.0 or target <= 0.0:
             return self.max_ratio
         exponent: float = self.damping / (order + 1)
-        return clamp(
-            self.safety * (target / error) ** exponent,
-            self.min_ratio,
-            self.max_ratio,
-        )
+        return clamp((target / error) ** exponent, self.min_ratio, self.max_ratio)
 
     def next_step(
         self,
@@ -38,6 +32,41 @@ class StepController:
         steps_left: int,
     ) -> float:
         raise NotImplementedError
+
+
+class NoiseLevelController:
+    def __init__(
+        self,
+        response: float = 0.0,
+        spread: float = 3.0,
+        smoothing: float = 0.5,
+        maximum: float = 2.0,
+    ) -> None:
+        self.response: float = response
+        self.spread: float = spread
+        self.smoothing: float = smoothing
+        self.maximum: float = maximum
+        self.reference: float | None = None
+
+    def update_reference(self, error: float) -> float:
+        if self.reference is None:
+            self.reference = error
+        else:
+            self.reference = (1.0 - self.smoothing) * self.reference + self.smoothing * error
+        return self.reference
+
+    def level(self, base: float, error: float | None) -> float:
+        if self.response == 0.0 or error is None or base <= 0.0:
+            return base
+        target: float = self.update_reference(error)
+        if target <= 0.0 or error <= 0.0:
+            return base
+        scale: float = clamp(
+            (error / target) ** self.response,
+            1.0 / self.spread,
+            self.spread,
+        )
+        return clamp(base * scale, 0.0, self.maximum)
 
 
 class FixedStepController(StepController):
@@ -60,33 +89,17 @@ class FixedStepController(StepController):
         return self.schedule[self.index + 1] - self.schedule[self.index]
 
 
-class ToleranceStepController(StepController):
-    def next_step(
-        self,
-        h: float,
-        error: float,
-        order: int,
-        remaining: float,
-        steps_left: int,
-    ) -> float:
-        if steps_left <= 1:
-            return remaining
-        return h * self.growth_ratio(error, order, 1.0)
-
-
 class BudgetStepController(StepController):
     def __init__(
         self,
         anchor: Sequence[float],
         spread: float = 3.0,
         smoothing: float = 0.5,
-        safety: float = 1.0,
         damping: float = 1.0,
         min_ratio: float = 0.5,
         max_ratio: float = 2.0,
     ) -> None:
         super().__init__(
-            safety=safety,
             damping=damping,
             min_ratio=min_ratio,
             max_ratio=max_ratio,

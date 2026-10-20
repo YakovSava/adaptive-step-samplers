@@ -1,0 +1,152 @@
+{
+  "1": {
+    "class_type": "AnimaBoosterLoader",
+    "inputs": {
+      "model_name": "anima_aestheticV11(1).safetensors",
+      "sage_attention": "auto",
+      "torch_compile": false
+    }
+  },
+  "43": {
+    "class_type": "LoraLoaderModelOnly",
+    "inputs": {
+      "lora_name": "firedotinc-anima-new.safetensors",
+      "strength_model": 1,
+      "model": [
+        "1",
+        0
+      ]
+    }
+  },
+  "5": {
+    "class_type": "CLIPLoader",
+    "inputs": {
+      "clip_name": "anima_baseV10_txt.safetensors",
+      "type": "stable_diffusion",
+      "device": "default"
+    }
+  },
+  "37": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "@firedotinc, 1girl, flat color illustration, plain pastel background",
+      "clip": [
+        "5",
+        0
+      ]
+    }
+  },
+  "6": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "worst quality, low quality,",
+      "clip": [
+        "5",
+        0
+      ]
+    }
+  },
+  "50": {
+    "class_type": "AnimaLatentImage",
+    "inputs": {
+      "preset": "Custom",
+      "width": 768,
+      "height": 1024,
+      "batch_size": 1
+    }
+  },
+  "51": {
+    "class_type": "BasicScheduler",
+    "inputs": {
+      "scheduler": "normal",
+      "steps": 24,
+      "denoise": 1,
+      "model": [
+        "43",
+        0
+      ]
+    }
+  },
+  "52": {
+    "class_type": "KSamplerSelect",
+    "inputs": {
+      "sampler_name": "euler"
+    }
+  },
+  "53": {
+    "class_type": "TrajectoryProbe",
+    "inputs": {
+      "tag": "run",
+      "order": 2,
+      "rtol": 0.05,
+      "atol": 0.0078,
+      "latent_stride": 0,
+      "note": "",
+      "sampler": [
+        "52",
+        0
+      ]
+    }
+  },
+  "54": {
+    "class_type": "SamplerCustom",
+    "inputs": {
+      "add_noise": true,
+      "noise_seed": 42,
+      "cfg": 5.0,
+      "model": [
+        "43",
+        0
+      ],
+      "positive": [
+        "37",
+        0
+      ],
+      "negative": [
+        "6",
+        0
+      ],
+      "sampler": [
+        "53",
+        0
+      ],
+      "sigmas": [
+        "51",
+        0
+      ],
+      "latent_image": [
+        "50",
+        0
+      ]
+    }
+  },
+  "28": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "qwenImage_qwenImageVAE.safetensors"
+    }
+  },
+  "27": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "54",
+        0
+      ],
+      "vae": [
+        "28",
+        0
+      ]
+    }
+  },
+  "12": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "filename_prefix": "exp/exp_",
+      "images": [
+        "27",
+        0
+      ]
+    }
+  }
+}

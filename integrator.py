@@ -3,12 +3,7 @@ from typing import Any, Callable, Sequence
 
 import numpy as np
 
-from .controller import (
-    BudgetStepController,
-    FixedStepController,
-    StepController,
-    ToleranceStepController,
-)
+from .controller import BudgetStepController, FixedStepController, StepController
 from .pc_core import (
     MAX_ORDER,
     corrector_order,
@@ -18,9 +13,8 @@ from .pc_core import (
 )
 
 BUDGET_MODE: str = "budget"
-TOLERANCE_MODE: str = "tolerance"
 FIXED_MODE: str = "fixed"
-MODES: list[str] = [BUDGET_MODE, TOLERANCE_MODE, FIXED_MODE]
+MODES: list[str] = [BUDGET_MODE, FIXED_MODE]
 
 
 @dataclass
@@ -29,7 +23,6 @@ class AdaptiveConfig:
     mode: str = BUDGET_MODE
     rtol: float = 0.05
     atol: float = 0.0078
-    safety: float = 0.9
     damping: float = 1.0
     min_ratio: float = 0.5
     max_ratio: float = 2.0
@@ -49,13 +42,6 @@ class AdaptiveConfig:
 def build_controller(config: AdaptiveConfig, schedule: Sequence[float]) -> StepController:
     if config.mode == FIXED_MODE:
         return FixedStepController(schedule)
-    if config.mode == TOLERANCE_MODE:
-        return ToleranceStepController(
-            safety=config.safety,
-            damping=config.damping,
-            min_ratio=config.min_ratio,
-            max_ratio=config.max_ratio,
-        )
     anchor: Sequence[float] = schedule
     if not config.anchor_to_schedule:
         count: int = len(schedule) - 1
@@ -64,7 +50,6 @@ def build_controller(config: AdaptiveConfig, schedule: Sequence[float]) -> StepC
     return BudgetStepController(
         spread=config.spread,
         smoothing=config.smoothing,
-        safety=1.0,
         damping=config.damping,
         min_ratio=config.min_ratio,
         max_ratio=config.max_ratio,
