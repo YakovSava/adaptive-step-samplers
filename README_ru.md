@@ -143,4 +143,4 @@ HTTP API, используя `probe_variance.json` как шаблон граф�
 
 ## Лицензия
 
-BSD 3-Clause, см. `LICENSE`.
+MIT License, см. `LICENSE`.
