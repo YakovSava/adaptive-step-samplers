@@ -130,4 +130,4 @@ LoRA 和 VAE 名称。
 
 ## 许可证
 
-BSD 3-Clause，见 `LICENSE`。
+MIT License，见 `LICENSE`。
