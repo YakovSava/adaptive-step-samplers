@@ -8,7 +8,7 @@ the next step needs anyway.
 This package exposes that estimate, and — more usefully in practice — exposes the stochastic
 strength of SA-Solver, which ComfyUI hardcodes.
 
-[Русский](README_ru.md) · [中文](README_zh.md)
+[Русский](README_ru.md) · [Марий йылме](README_chr.md) · [中文](README_zh.md)
 
 ## Install
 

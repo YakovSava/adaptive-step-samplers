@@ -8,7 +8,7 @@
 Пакет выводит эту оценку наружу и, что практически полезнее, открывает силу стохастики SA-Solver,
 которую ComfyUI держит жёстко зашитой.
 
-[English](README.md) · [中文](README_zh.md)
+[English](README.md) · [Марий йылме](README_chr.md) · [中文](README_zh.md)
 
 ## Установка
 

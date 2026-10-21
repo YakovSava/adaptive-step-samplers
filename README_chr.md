@@ -4,7 +4,7 @@ ComfyUI-лан ик шонмаш йыр ыштыме сэмплер-влак: ш
 
 Пакет тиде акым тӱжвак луктеш да, эн пайдалыже, SA-Solver-ын стохастик вийым почеш, кудыжым ComfyUI пеҥгыдын петырен шогалта.
 
-[English](README.md) · [中文](README_zh.md)
+[English](README.md) · [Русский](README_ru.md) · [中文](README_zh.md)
 
 ## Шындымаш (Установка)
 
@@ -16,7 +16,7 @@ ComfyUI-лан ик шонмаш йыр ыштыме сэмплер-влак: ш
 | --- | --- | --- |
 | `Adaptive SA Sampler` | `SAMPLER` | Почылтшо стохастик вий (`eta`) да йӱк тӧрза чек дене SA-Solver |
 | `Adaptive PC Sampler` | `SAMPLER` | Йоҥылышым яра аклыше Адамсын детерминированный предиктор-корректоржо |
-| `Trajectory Probe` | `SAMPLER` | Тӱрлӧ сэмплерым леведа да ошкыл диагнозикым `output/exp` папкаш воза |
+| `Trajectory Probe` | `SAMPLER` | Тӱрлӧ сэмплерым леведа да ошкыл диагностикым `output/exp` папкаш воза |
 
 Сэмплер лӱм-влак тыгак тичмаш `KSampler` да API-воркфлоулан регистратлалтыныт:
 `asa_fixed`, `asa_adaptive`, `apc_2`, `apc_3`, `apc_2_pred`, `apc_2_fixed`, `apc_3_fixed`.

@@ -6,7 +6,7 @@
 本插件把这个估计暴露出来；而在实用层面更重要的是，它开放了 SA-Solver 的随机强度，这个参数在 ComfyUI
 中是写死的。
 
-[English](README.md) · [Русский](README_ru.md)
+[English](README.md) · [Русский](README_ru.md) · [Марий йылме](README_chr.md)
 
 ## 安装
 
