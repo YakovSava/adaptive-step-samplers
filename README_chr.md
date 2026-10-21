@@ -1,5 +1,7 @@
 # Adaptive Samplers
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23529356.svg)](https://doi.org/10.5281/zenodo.23529356)
+
 ComfyUI-лан ик шонмаш йыр ыштыме сэмплер-влак: шуко ошкылан «предиктор — корректор» схемыште ончылгоч каласыме да тӧрлатыме вийысе ойыртем верысе йоҥылышым аклымаш лиеш, да тудо **эше ик сеть кычкырмаште ок шокто (ноль)** — вет тӧрлатымашым пуышо кычкырма вес ошкылланат баке кӱлеш.
 
 Пакет тиде акым тӱжвак луктеш да, эн пайдалыже, SA-Solver-ын стохастик вийым почеш, кудыжым ComfyUI пеҥгыдын петырен шогалта.
@@ -101,6 +103,19 @@ venv/Scripts/python.exe custom_nodes/adaptive-samplers/test_stochastic.py   # sa
 ## Эксперимент скрипт-влак
 
 `run_grid.py`, `run_schedule_ab.py`, `run_sde_test.py`, `run_jitter_sweep.py` ComfyUI дене HTTP API гоч виктарат, `probe_variance.json` графым шаблон семын кучылтыт. Лач нуно кӱшыл числа-влакым пуэныт; пайдаланыме деч ончыч шаблонышто модель, LoRA да VAE лӱм-влакым тӧрлатыза.
+
+## Цитатлымаш (Цитирование)
+
+```bibtex
+@software{savelev_yuzvynsky_2026_adaptivesamplers,
+  author       = {Iakov Savelev and Yehor Yuzvynsky},
+  title        = {Adaptive Step Samplers: Zero-Cost Truncation Error Estimation and Exposed Stochastic Control for ComfyUI},
+  year         = {2026},
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.23529356},
+  url          = {https://doi.org/10.5281/zenodo.23529356}
+}
+```
 
 ## Лицензий
 

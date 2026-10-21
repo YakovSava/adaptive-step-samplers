@@ -1,5 +1,7 @@
 # Adaptive Samplers
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23529356.svg)](https://doi.org/10.5281/zenodo.23529356)
+
 Сэмплеры для ComfyUI вокруг одной идеи: в многошаговой схеме «предиктор — корректор» разность
 между предсказанным и скорректированным состоянием есть оценка локальной погрешности, и стоит она
 **ноль дополнительных вызовов сети** — потому что вызов, дающий коррекцию, всё равно нужен
@@ -140,6 +142,19 @@ venv/Scripts/python.exe custom_nodes/adaptive-samplers/test_stochastic.py   # п
 `run_grid.py`, `run_schedule_ab.py`, `run_sde_test.py`, `run_jitter_sweep.py` управляют ComfyUI по
 HTTP API, используя `probe_variance.json` как шаблон графа. Именно они дали приведённые выше числа;
 перед использованием поправьте в шаблоне имена модели, LoRA и VAE.
+
+## Цитирование
+
+```bibtex
+@software{savelev_yuzvynsky_2026_adaptivesamplers,
+  author       = {Iakov Savelev and Yehor Yuzvynsky},
+  title        = {Adaptive Step Samplers: Zero-Cost Truncation Error Estimation and Exposed Stochastic Control for ComfyUI},
+  year         = {2026},
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.23529356},
+  url          = {https://doi.org/10.5281/zenodo.23529356}
+}
+```
 
 ## Лицензия
 

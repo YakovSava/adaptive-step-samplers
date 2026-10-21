@@ -1,5 +1,7 @@
 # Adaptive Samplers
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23529356.svg)](https://doi.org/10.5281/zenodo.23529356)
+
 一套 ComfyUI 采样器，核心只有一个想法：在多步预测–校正格式中，预测状态与校正状态之差本身就是局部截断
 误差的估计，而且**不需要任何额外的网络调用**——因为产生校正的那次调用，正是下一步本来就要做的。
 
@@ -127,6 +129,19 @@ venv/Scripts/python.exe custom_nodes/adaptive-samplers/test_stochastic.py   # �
 `run_grid.py`、`run_schedule_ab.py`、`run_sde_test.py`、`run_jitter_sweep.py` 通过 HTTP API 驱动
 ComfyUI，以 `probe_variance.json` 作为图模板。上文的数据正是由它们得出；使用前请先修改模板中的模型、
 LoRA 和 VAE 名称。
+
+## 引用
+
+```bibtex
+@software{savelev_yuzvynsky_2026_adaptivesamplers,
+  author       = {Iakov Savelev and Yehor Yuzvynsky},
+  title        = {Adaptive Step Samplers: Zero-Cost Truncation Error Estimation and Exposed Stochastic Control for ComfyUI},
+  year         = {2026},
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.23529356},
+  url          = {https://doi.org/10.5281/zenodo.23529356}
+}
+```
 
 ## 许可证
 

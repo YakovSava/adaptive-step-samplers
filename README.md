@@ -1,5 +1,7 @@
 # Adaptive Samplers
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23529356.svg)](https://doi.org/10.5281/zenodo.23529356)
+
 ComfyUI samplers built around one idea: in a multistep predictor–corrector scheme the gap
 between the predicted and the corrected state is a local truncation error estimate that costs
 **zero extra network evaluations**, because the evaluation that produces the correction is the one
@@ -139,6 +141,19 @@ tracks the true local error with a median ratio of 0.93–0.98.
 `run_grid.py`, `run_schedule_ab.py`, `run_sde_test.py`, `run_jitter_sweep.py` drive ComfyUI over its
 HTTP API using `probe_variance.json` as the graph template. They are the scripts that produced the
 numbers above; adapt the model, LoRA and VAE names in the template before use.
+
+## Citation
+
+```bibtex
+@software{savelev_yuzvynsky_2026_adaptivesamplers,
+  author       = {Iakov Savelev and Yehor Yuzvynsky},
+  title        = {Adaptive Step Samplers: Zero-Cost Truncation Error Estimation and Exposed Stochastic Control for ComfyUI},
+  year         = {2026},
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.23529356},
+  url          = {https://doi.org/10.5281/zenodo.23529356}
+}
+```
 
 ## License
 
