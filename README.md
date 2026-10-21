@@ -142,4 +142,4 @@ numbers above; adapt the model, LoRA and VAE names in the template before use.
 
 ## License
 
-BSD 3-Clause, see `LICENSE`.
+MIT License, see `LICENSE`.
