@@ -69,7 +69,7 @@ class AdaptiveSASampler:
             "required": {
                 "predictor_order": ("INT", {"default": 3, "min": 1, "max": 6}),
                 "corrector_order": ("INT", {"default": 4, "min": 0, "max": 6}),
-                "eta": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 2.0, "step": 0.05}),
+                "eta": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 6.0, "step": 0.05}),
                 "stochastic_start": (
                     "FLOAT",
                     {"default": 0.2, "min": 0.0, "max": 1.0, "step": 0.01},
